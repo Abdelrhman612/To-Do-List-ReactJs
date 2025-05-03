@@ -18,7 +18,7 @@ const Todoform = (props: TodoFormProps) => {
   return (
     <form onSubmit={HandleSubmit}>
       <input
-        className="input"
+        className="input-field"
         type="text"
         placeholder="Add a new task"
         onChange={(e) => setText(e.target.value)}
