@@ -1,15 +1,12 @@
+import { TodoProps } from "./TodoInterFace";
 import "./TodoStyle.css";
-interface TodoProps {
-  todo: {
-    text: string;
-  };
-}
-
 const Todo = (props: TodoProps) => {
   return (
     <div className="d-f">
       <div className="text">{props.todo.text}</div>
-      <button className="delete-btn">x</button>
+      <button className="delete-btn" onClick={props.onDelete}>
+        x
+      </button>
     </div>
   );
 };
