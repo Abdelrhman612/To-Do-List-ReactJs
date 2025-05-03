@@ -13,6 +13,7 @@ const Todoform = (props: TodoFormProps) => {
       text: text,
       complete: false,
     });
+    setText("");
   };
 
   return (
