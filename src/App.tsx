@@ -8,12 +8,19 @@ function App() {
   const AddTodo = (todo: { id: string; text: string; complete: boolean }) => {
     setTodos([todo, ...todos]);
   };
+  const handleDelete = (id: string) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
   return (
     <>
       <div className="container">
         <Todoform onSubmit={AddTodo} todos={[]} />
         {todos.map((todo) => (
-          <Todo key={todo.id} todo={todo} />
+          <Todo
+            key={todo.id}
+            todo={todo}
+            onDelete={() => handleDelete(todo.id)}
+          />
         ))}
       </div>
     </>
