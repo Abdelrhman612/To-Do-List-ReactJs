@@ -1,16 +1,28 @@
+/* eslint-disable prefer-const */
 import { useState } from "react";
-import "./App.css";
 import Todoform from "./components/Todoform/Todoform";
 import Todo from "./components/Todo/Todo";
 
 function App() {
-  const [todos, setTodos] = useState<{ id: string; text: string }[]>([]);
+  let [todos, setTodos] = useState<
+    { id: string; text: string; complete: boolean }[]
+  >([]);
+  const [todosToshow, setTodoToShow] = useState("all");
   const AddTodo = (todo: { id: string; text: string; complete: boolean }) => {
     setTodos([todo, ...todos]);
   };
   const handleDelete = (id: string) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
+  const updateTodoToshow = (s: string) => {
+    setTodoToShow(s);
+  };
+  if (todosToshow === "active") {
+    todos = todos.filter((todo) => !todo.complete);
+  } else if (todosToshow === "complete") {
+    todos = todos.filter((todo) => todo.complete);
+  }
+
   return (
     <>
       <div className="container">
@@ -22,6 +34,24 @@ function App() {
             onDelete={() => handleDelete(todo.id)}
           />
         ))}
+        <button
+          className="update-btn btn"
+          onClick={() => updateTodoToshow("all")}
+        >
+          All
+        </button>
+        <button
+          className="update-btn btn"
+          onClick={() => updateTodoToshow("active")}
+        >
+          Active
+        </button>
+        <button
+          className="update-btn btn"
+          onClick={() => updateTodoToshow("complete")}
+        >
+          Complete
+        </button>
       </div>
     </>
   );
