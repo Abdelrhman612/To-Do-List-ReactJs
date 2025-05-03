@@ -1,14 +1,18 @@
-import "./Todoform.css";
 import { useState } from "react";
-interface TodoFormProps {
-  onSubmit: (text: string) => void;
-}
+import shortid from "shortid";
+import { TodoFormProps } from "./TodoInterFace";
+import "./TodoStyle.css";
 
 const Todoform = (props: TodoFormProps) => {
   const [text, setText] = useState<string>("");
+
   const HandleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    props.onSubmit(text);
+    props.onSubmit({
+      id: shortid.generate(),
+      text: text,
+      complete: false,
+    });
   };
 
   return (
