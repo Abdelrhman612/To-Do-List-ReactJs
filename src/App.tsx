@@ -8,6 +8,7 @@ function App() {
     { id: string; text: string; complete: boolean }[]
   >([]);
   const [todosToshow, setTodoToShow] = useState("all");
+
   const AddTodo = (todo: { id: string; text: string; complete: boolean }) => {
     setTodos([todo, ...todos]);
   };
@@ -16,6 +17,15 @@ function App() {
   };
   const updateTodoToshow = (s: string) => {
     setTodoToShow(s);
+  };
+  const toggleComplete = (id: string) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, complete: !todo.complete };
+      }
+      return todo;
+    });
+    setTodos(newTodos);
   };
   if (todosToshow === "active") {
     todos = todos.filter((todo) => !todo.complete);
@@ -32,6 +42,7 @@ function App() {
             key={todo.id}
             todo={todo}
             onDelete={() => handleDelete(todo.id)}
+            toggleComplete={() => toggleComplete(todo.id)}
           />
         ))}
         <button
