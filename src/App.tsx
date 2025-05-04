@@ -8,6 +8,7 @@ function App() {
     { id: string; text: string; complete: boolean }[]
   >([]);
   const [todosToshow, setTodoToShow] = useState("all");
+  const [toggleAllComplete, setToggleAllComplete] = useState(true);
 
   const AddTodo = (todo: { id: string; text: string; complete: boolean }) => {
     setTodos([todo, ...todos]);
@@ -17,6 +18,10 @@ function App() {
   };
   const updateTodoToshow = (s: string) => {
     setTodoToShow(s);
+  };
+  const removeAllTodosComplete = () => {
+    const newTodos = todos.filter((todo) => !todo.complete);
+    setTodos(newTodos);
   };
   const toggleComplete = (id: string) => {
     const newTodos = todos.map((todo) => {
@@ -62,6 +67,20 @@ function App() {
           onClick={() => updateTodoToshow("complete")}
         >
           Complete
+        </button>
+        <button className="all-btn btn" onClick={removeAllTodosComplete}>
+          Remove All complete todos
+        </button>
+        <button
+          className="all-btn btn"
+          onClick={() => {
+            setTodos(
+              todos.map((todo) => ({ ...todo, complete: toggleAllComplete }))
+            );
+            setToggleAllComplete(!toggleAllComplete);
+          }}
+        >
+          Toggle All complete : {`${toggleAllComplete}`}
         </button>
       </div>
     </>
